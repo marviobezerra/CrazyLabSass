@@ -1,0 +1,74 @@
+{
+  "nextFreeModuleId": 16,
+  "modules": {
+    "byIdentifier": {
+      "multi main": 0,
+      "node_modules\\webpack\\hot\\signal.js": 1,
+      "node_modules\\webpack\\hot\\log-apply-result.js": 2,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Vendors.ts": 3,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Main.ts": 4,
+      "node_modules\\ts-loader\\index.js!Server\\App\\App.ts": 5,
+      "external \"express\"": 6,
+      "external \"path\"": 7,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Routes\\index.ts": 8,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Routes\\PeopleRoute.ts": 9,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Services\\index.ts": 10,
+      "node_modules\\ts-loader\\index.js!Server\\App\\Services\\PeopleService.ts": 11,
+      "external \"rxjs\"": 12,
+      "external \"reflect-metadata\"": 13,
+      "external \"debug\"": 14,
+      "external \"http\"": 15
+    }
+  },
+  "nextFreeChunkId": 1,
+  "chunks": {
+    "byName": {
+      "main": 0
+    },
+    "byBlocks": {}
+  },
+  "prepreHash": "38ffc629f5953d82b5be",
+  "preHash": "330edd90a709a9c2cf2c",
+  "hash": "af33478641a6df2e9357",
+  "moduleHashs": {
+    "multi main": "3fcb28b84edf44777703a9d23780aced",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\webpack\\hot\\signal.js": "76bf5ea5788933e8a7dd2c8d335e8f27",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\webpack\\hot\\log-apply-result.js": "7cd41a95be6ba16cefccb5d39036449c",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Vendors.ts": "cdf6d6404f716a0b93c202ea6a8f98f4",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Main.ts": "78359642ca6f3005317e232d834f6276",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\App.ts": "57153c6776a1c5905d65b45881b9cb63",
+    "external \"express\"": "1679091c5a880faf6fb5e6087eb1b2dc",
+    "external \"path\"": "8f14e45fceea167a5a36dedd4bea2543",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Routes\\index.ts": "da1528377aec02c61ffab78eedfbbd12",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Routes\\PeopleRoute.ts": "0865885c12c0b7473c5adf1714210bc1",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Services\\index.ts": "26e8888af624f9111ef9d1f468a8fe42",
+    "d:\\VSGit\\CrazyLabSass\\node_modules\\ts-loader\\index.js!d:\\VSGit\\CrazyLabSass\\Server\\App\\Services\\PeopleService.ts": "82d6771c972e6e70842ddf3263fc8dd4",
+    "external \"rxjs\"": "c20ad4d76fe97759aa27a0c99bff6710",
+    "external \"reflect-metadata\"": "c51ce410c124a10e0db5e4b97fc2af39",
+    "external \"debug\"": "aab3238922bcc25a6f606eb525ffdc56",
+    "external \"http\"": "9bf31c7ff062936a96d3c8bd1f8f2ff3"
+  },
+  "chunkHashs": {
+    "0": "666e9c2e8811ded603d13ed9c31aa2ce"
+  },
+  "chunkModuleIds": {
+    "0": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  }
+}

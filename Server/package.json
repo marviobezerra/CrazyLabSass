@@ -1,0 +1,16 @@
+{
+  "name": "nodecrazysass-server",
+  "version": "1.0.0",
+  "description": "Test with SASS",
+  "main": "gulpfile.js",
+  "keywords": [],
+  "author": "Marvio Andre",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "postinstall": "typings install"
+  }
+}
