@@ -5,7 +5,7 @@ var path = require('path'),
 module.exports = {
 	entry: [
 		path.join(__dirname, "App", "Main.ts"),
-		path.join(__dirname, "App", "Styles", "app.theme.scss")
+		path.join(__dirname, "App", "Styles", "app.style.scss")
 	],
 	output: {
 		path: path.join(__dirname, "..", "bin", "public", "assets"),
