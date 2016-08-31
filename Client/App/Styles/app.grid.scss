@@ -41,17 +41,18 @@ $size-large: 1024px;
   flex-direction: row;
 }
 
-.align-center {
-  align-items: stretch;
-  align-content: center;
-}
-
 .layout-column {
   display: flex;
   flex-direction: column;
 }
 
-@media only screen and (max-width: $size-small) {
+.center-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@include respond-to($device-small) {
 
   .layout-row-sm {
     display: flex;
@@ -70,7 +71,7 @@ $size-large: 1024px;
   }
 }
 
-@media only screen and (min-width: $size-small + 1) and (max-width: $size-large) {
+@include respond-to($device-medium) {
 
   .layout-row-md {
     display: flex;
@@ -89,7 +90,7 @@ $size-large: 1024px;
   }
 }
 
-@media only screen and (min-width: $size-large) {
+@include respond-to($device-large) {
 
   .layout-row-lg {
     display: flex;
