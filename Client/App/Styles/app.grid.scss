@@ -1,7 +1,3 @@
-input {
-  width: 100%;
-}
-
 $device-small: 1;
 $device-medium: 2;
 $device-large: 3;
@@ -29,21 +25,64 @@ $size-large: 1024px;
     }
 }
 
-$size-small: 320px;
-$size-large: 1024px;
+$alignOptions: start, end, center, start, between;
+$justifyOptions: center, start;
 
-.flex {
-  flex: 1 0 auto;  
+@function align-translate($option, $justify) {
+
+  @if ($justify) {
+    @if ($option == "start") {
+      @return "flex-start";
+    }
+
+    @if ($option == "end") {
+      @return "flex-end";
+    }
+    
+    @if ($option == "between") {
+      @return "space-between";
+    }
+
+    @if ($option == "around") {
+      @return "space-around";
+    }
+
+    @return $option;
+  }
+
+  @return $option;
 }
 
-.layout-row {
+
+@each $align in $alignOptions {
+  
+  @each $justify in $justifyOptions {
+      [align="#{$align} #{$justify}"] {
+          align-items: $align-translate($align, false);
+        	justify-content: $align-translate($justify, true);
+      }
+  }
+}
+
+[layout],
+[layout="row"] {
   display: flex;
   flex-direction: row;
 }
 
-.layout-column {
+[layout="column"] {
   display: flex;
   flex-direction: column;
+}
+
+[flex] {
+  flex: 1 0 auto;  
+}
+
+@for $i from 1 through 100 {  
+  [flex="#{$i}"] {
+    flex: $i 0 auto;
+  }
 }
 
 .center-items {
@@ -54,18 +93,23 @@ $size-large: 1024px;
 
 @include respond-to($device-small) {
 
-  .layout-row-sm {
+  [layout-sm],
+  [layout-sm="row"] {
     display: flex;
     flex-direction: row;
   }
 
-  .layout-column-sm {
+  [layout-sm="column"] {
     display: flex;
     flex-direction: column;
   }
 
+  [flex-sm] {
+    flex: 1 0 auto;
+  }
+
   @for $i from 1 through 100 {
-    .flex-sm-#{$i} {
+    [flex-sm="#{$i}"] {
       flex: $i 0 auto;
     }
   }
@@ -73,37 +117,23 @@ $size-large: 1024px;
 
 @include respond-to($device-medium) {
 
-  .layout-row-md {
+  [layout-md],
+  [layout-md="row"] {
     display: flex;
     flex-direction: row;
   }
 
-  .layout-column-md {
+  [layout-md="column"] {
     display: flex;
     flex-direction: column;
   }
 
-  @for $i from 1 through 100 {  
-    .flex-md-#{$i} {
-      flex: $i 0 auto;
-    }
-  }
-}
-
-@include respond-to($device-large) {
-
-  .layout-row-lg {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .layout-column-lg {
-    display: flex;
-    flex-direction: column;
+  [flex-md] {
+    flex: 1 0 auto;
   }
 
   @for $i from 1 through 100 {  
-    .flex-lg-#{$i} {
+    [flex-md="#{$i}"] {
       flex: $i 0 auto;
     }
   }
