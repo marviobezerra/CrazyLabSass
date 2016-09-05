@@ -9,22 +9,24 @@
     <link href="/assets/bundle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-
-<body>
-    <div class="container">
-        <div class="header">header</div>
-        <div class="body">
-            <div class="side">side</div>
-            <div class="content layout-row layout-column-sm ">
-                <div class="flex center-items" style="background: red;">
-                    <span>Test - 0</span>
-                </div>                
-                <div class="flex center-items" style="background: blue;">
-                    Test - 1
-                </div>
+<body layout="column" flex="100">
+    <div flex="10" class="header" style="background: green">
+        header
+    </div>
+    <div layout="row" layout-md="column" layout-sm="column" flex="100">
+        <div flex="25" style="background: tomato">
+            side
+        </div>
+        <div layout="column" flex="100">
+            <div layout="column" align="center center" flex="10" flex-sm="90" style="background: red;">
+                <span>Test - 0</span>
+            </div>
+            <div layout="column" align="center end" flex="90" flex-sm="10" style="background: blue;">
+                <span>Test - 1</span>
             </div>
         </div>
     </div>
+
     <script type="text/javascript" src="/assets/bundle.js"></script>
     <script type="text/javascript" src="//localhost:35729/livereload.js?snipver =1" async defer></script>
 </body>

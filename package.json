@@ -39,6 +39,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./deploy/index.js",
-    "postinstall": "cd Server && npm i && cd .. && cd Client && npm install && gulp build:deploy"
+    "postinstall": "cd Server && npm i && cd .. && cd Client && npm install"
   }
 }

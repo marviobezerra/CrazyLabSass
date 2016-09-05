@@ -25,116 +25,106 @@ $size-large: 1024px;
     }
 }
 
-$alignOptions: start, end, center, start, between;
-$justifyOptions: center, start;
+$alignOptions: start, end, center, around, stretch, baseline;
+$justifyOptions: start, end, center, between, around;
 
 @function align-translate($option, $justify) {
 
   @if ($justify) {
-    @if ($option == "start") {
-      @return "flex-start";
+    @if ($option == start) {
+      @return flex-start;
     }
 
-    @if ($option == "end") {
-      @return "flex-end";
+    @if ($option == end) {
+      @return flex-end;
+    }
+
+    @if ($option == center) {
+      @return center;
     }
     
-    @if ($option == "between") {
-      @return "space-between";
+    @if ($option == between) {
+      @return space-between;
     }
 
-    @if ($option == "around") {
-      @return "space-around";
+    @if ($option == around) {
+      @return space-around;
     }
 
     @return $option;
   }
 
+  @if ($option == start) {
+    @return flex-start;
+  }
+
+  @if ($option == end) {
+    @return flex-end;
+  }
+
+  @if ($option == center) {
+    @return center;
+  }
+
+  @if ($option == baseline) {
+    @return baseline;
+  }
+
+  @if ($option == stretch) {
+    @return stretch;
+  }
+
   @return $option;
 }
 
+@mixin apply-align($size) {
+  @each $align in $alignOptions {
+    @each $justify in $justifyOptions {
+        [#{$size}="#{$align} #{$justify}"] {
+            align-items: align-translate($align, false);
+          	justify-content: align-translate($justify, true);
+        }
+    }
+  }
+}
 
-@each $align in $alignOptions {
+@mixin apply-flex($size) {
+  [#{$size}] {
+    flex: 1 0 auto;  
+  }
   
-  @each $justify in $justifyOptions {
-      [align="#{$align} #{$justify}"] {
-          align-items: $align-translate($align, false);
-        	justify-content: $align-translate($justify, true);
-      }
-  }
-}
-
-[layout],
-[layout="row"] {
-  display: flex;
-  flex-direction: row;
-}
-
-[layout="column"] {
-  display: flex;
-  flex-direction: column;
-}
-
-[flex] {
-  flex: 1 0 auto;  
-}
-
-@for $i from 1 through 100 {  
-  [flex="#{$i}"] {
-    flex: $i 0 auto;
-  }
-}
-
-.center-items {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@include respond-to($device-small) {
-
-  [layout-sm],
-  [layout-sm="row"] {
-    display: flex;
-    flex-direction: row;
-  }
-
-  [layout-sm="column"] {
-    display: flex;
-    flex-direction: column;
-  }
-
-  [flex-sm] {
-    flex: 1 0 auto;
-  }
-
-  @for $i from 1 through 100 {
-    [flex-sm="#{$i}"] {
+  @for $i from 1 through 100 {  
+    [#{$size}="#{$i}"] {
       flex: $i 0 auto;
     }
   }
+}
+
+@mixin apply-layout($size) {
+  [#{$size}],
+  [#{$size}="row"] {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  [#{$size}="column"] {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@include apply-layout(layout);
+@include apply-flex(flex);
+@include apply-align(align);
+
+@include respond-to($device-small) {
+  @include apply-layout(layout-sm);
+  @include apply-flex(flex-sm);
+  @include apply-align(align-sm);
 }
 
 @include respond-to($device-medium) {
-
-  [layout-md],
-  [layout-md="row"] {
-    display: flex;
-    flex-direction: row;
-  }
-
-  [layout-md="column"] {
-    display: flex;
-    flex-direction: column;
-  }
-
-  [flex-md] {
-    flex: 1 0 auto;
-  }
-
-  @for $i from 1 through 100 {  
-    [flex-md="#{$i}"] {
-      flex: $i 0 auto;
-    }
-  }
+  @include apply-layout(layout-md);
+  @include apply-flex(flex-md);
+  @include apply-align(align-md);
 }
