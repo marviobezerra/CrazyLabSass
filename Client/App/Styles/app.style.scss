@@ -1,5 +1,5 @@
 @import "app.theme";
-@import "app.grid";
+@import "xcommon-layout";
 
 html, body {
 	margin: 0;
@@ -8,4 +8,14 @@ html, body {
     height: 100%;
     width: 100%;
     background-color: $color-body;
+}
+
+.col {
+    flex-wrap: wrap;
+    -webkit-columns: 4 150px;
+    -moz-columns: 4 150px;
+    columns: 4 150px;
+    -webkit-column-gap: 2em;
+    -moz-column-gap: 2em;
+    column-gap: 2em;
 }
