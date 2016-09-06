@@ -138,7 +138,7 @@ $justifyOptions: start, end, center, between, around;
 @include apply-layout(layout);
 @include apply-flex(flex);
 @include apply-content(content);
-@include apply-content(hide);
+@include apply-hide(hide);
 
 @include respond-to($device-small) {
   @include apply-layout(layout-sm);

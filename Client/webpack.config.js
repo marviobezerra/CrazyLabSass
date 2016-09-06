@@ -1,6 +1,8 @@
-var path = require('path'),
+var path = require("path"),
 	ExtractTextPlugin = require("extract-text-webpack-plugin"),
-	webpack = require('webpack');
+	autoprefixer = require("autoprefixer"),
+	precss = require("precss"),	
+	webpack = require("webpack");
 
 module.exports = {
 	entry: [
@@ -14,20 +16,18 @@ module.exports = {
 	plugins: [
 		new ExtractTextPlugin("bundle.css")
 	],
-
 	resolve: {
 		extensions: ["", ".js", ".ts", ".scss", ".css"]
 	},
-
 	module: {
 		loaders: [
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+				loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
 			},
 			{
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!sass-loader")
             },
 			{
 				test: /\.ts$/,
@@ -35,8 +35,11 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				loader: 'strip-sourcemap'
+				loader: "strip-sourcemap"
 			}
 		]
-	}
+	},
+	postcss: function () {
+        return [precss, autoprefixer({ browsers: ["last 2 versions"] })];
+    }
 };
