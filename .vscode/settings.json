@@ -2,13 +2,9 @@
 {
     "editor.insertSpaces": false,
     "files.exclude": {
-        "/**/.gitignore": true,
+        "/**/.gitignore": false,
         "/**/tsconfig.json": true,
         "/**/typings.json": true,
-        "/**/config.bat": true,
-        "/**/clean.bat": true,        
-        "bin": true,
-        "deploy": true,
         "/**/node_modules": true,
         "/**/typings": true
     }

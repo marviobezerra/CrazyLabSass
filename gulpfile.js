@@ -1,199 +1,158 @@
 var gulp = require("gulp"),
-  fs = require("fs"),
-  path = require("path"),
-  nodemon = require("nodemon"),
-  htmlmin = require("gulp-htmlmin"),
-  merge = require("webpack-merge"),
-  livereload = require("gulp-livereload"),
-  webpack = require("webpack"),
-  rimraf = require("gulp-rimraf"),
-  webpackStream = require("webpack-stream");
+    gutil = require("gulp-util"),
+    htmlmin = require("gulp-htmlmin"),
+    livereload = require("gulp-livereload"),
+    rimraf = require("gulp-rimraf"),
+    webpack = require("webpack"),
+    webpackStream = require("webpack-stream"),
+    connect = require("gulp-connect"),
+    runSequence = require("run-sequence"),
+    replace = require("gulp-replace");
 
 var helper = {
-  onBuild: function (done) {
-    return function (err, stats) {
-      if (err) {
-        console.log("Error", err);
-      }
-      else {
-        console.log(stats.toString());
-      }
+    tasks: {
+        clear: "clear",
+        watch: "dev:watch",
+        compile: {
+            deploy: "compile:deploy",
+            server: "compile:server",
+            html: "compile:html",
+            ts: "compile:ts",
+            options: {
+                watch: false,
+                deploy: false
+            }
+        }
+    },
+    path: {
+        source: {
+            defaultFile: "./app/App.Component.ts",
+            html: "./app/**/*.html"
+        },
+        destination: {
+            port: "8080",
+            html: "./public",
+            assets: "./public/assets"
+        }
+    },
+    htmlMimify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeTagWhitespace: false,
+        removeRedundantAttributes: true,
+        caseSensitive: true
+    },
+    reload: {
+        tag: function () {
+            return helper.tasks.compile.options.watch === true
+                ? "<script type=\"text/javascript\" src=\"//localhost:" + helper.reload.port + "/livereload.js?snipver =1\" async defer></script>"
+                : "";
+        },
+        port: 35719
+    },
+    webpack: function () {
+        var result = Object.create(require("./webpack.config.js"));
 
-      if (done) {
-        done();
-      }
-    }
-  },
-  htmlMimify: {
-    collapseWhitespace: true,
-    removeComments: true,
-    removeTagWhitespace: false,
-    removeRedundantAttributes: true,
-    caseSensitive: true
-  },
-  webpack: {
-    client: require("./Client/webpack.config.js"),
-    server: require("./Server/webpack.config.js"),
-    config: function (config, dev, watch, deploy, server) {
-      var result = merge(config, {
-        watch: watch,
-        devtool: dev ? "source-map" : ""
-      });
-
-      if (watch === true) {
-        result.plugins = result.plugins || [];
-        result.plugins.push(helper.webpack.Log);
-      }
-
-      if (deploy === true) {
-        result.plugins = result.plugins || [];
-        result.plugins.push(new webpack.optimize.UglifyJsPlugin({
-          minimize: true
-        }));
-
-
-        if (server === true) {
-          delete config.output.devtoolModuleFilenameTemplate;
-          delete config.output.devtoolFallbackModuleFilenameTemplate;
-          delete config.recordsPath;
-
-          config.output.path = path.join(__dirname, "deploy");
-
-          console.log("recordsPath: " + config.recordsPath);
+        if (helper.tasks.compile.options.watch === true) {
+            result.debug = true;            
+            result.devtool = "source-map";            
+            result.watch = true;
+            result.plugins = result.plugins || [];
+            result.plugins.push(helper.webPackLog);
         }
 
-        if (server === false) {
-          config.output.path = path.join(__dirname, "deploy", "public", "assets");
+        if (helper.tasks.compile.options.deploy === true) {
+            result.plugins = result.plugins || [];
+            result.plugins.push(new webpack.NoErrorsPlugin());
+            result.plugins.push(new webpack.optimize.DedupePlugin());
+            result.plugins.push(new webpack.optimize.UglifyJsPlugin({
+                beautify: false,
+                comments: false,
+                minimize: true,
+                mangle: {
+                    screw_ie8: true,
+                    keep_fnames: true
+                },
+                compress: {
+                    warnings: false,
+                    screw_ie8: true,
+                    drop_console: true,
+                    drop_debugger: true
+                }
+            }));
         }
-      }
 
-      return result;
+        return result;
     },
-    Log: function () {
-      this.plugin("done", function (stats) {
-        if (stats.compilation.errors && stats.compilation.errors.length) {
-          console.log("");
-          console.log("********************************************************************************");
-          console.log("********************************   ERROR   *************************************");
-          console.log("");
-          console.log(stats.compilation.errors);
-          console.log("********************************************************************************");
-          console.log("********************************************************************************");
-          console.log("");
-          stats.compilation.errors = [];
-        }
-      });
+    webPackLog: function () {
+        this.plugin("done", function (stats) {
+            if (stats.compilation.errors && stats.compilation.errors.length) {
+                console.log("");
+                console.log("********************************************************************************");
+                console.log("********************************   ERROR   *************************************");
+                console.log("");
+                console.log(stats.compilation.errors);
+                console.log("********************************************************************************");
+                console.log("");
+                stats.compilation.errors = [];
+            }
+        });
     }
-  },
-  path: {
-    source: {
-      html: "./Client/App/**/*.html"
-    },
-    destination: {
-      html: "./bin/public",
-      js: "./bin/public/assets"
-    }
-  },
-  tasks: {
-    run: "run",
-    clean: {
-      bin: "clean",
-      deploy: "clean:deploy"
-    },
-    watch: {
-      client: "watch:client",
-      server: "watch:server",
-      all: "watch"
-    },
-    build: {
-      copy: "build:client:copy",
-      client: "build:client",
-      server: "build:server",
-      deploy: "build:deploy"
-    }
-  },
 };
 
-gulp.task(helper.tasks.clean.bin, function (done) {
-  return gulp.src(path.join("./bin"), { read: false })
-    .pipe(rimraf());
+gulp.task(helper.tasks.clear, function () {
+    return gulp.src([helper.path.destination.html], { read: false })
+        .pipe(rimraf());
 });
 
-gulp.task(helper.tasks.clean.deploy, function (done) {
-  return gulp.src(path.join("/deploy"), { read: false })
-    .pipe(rimraf());
+gulp.task(helper.tasks.compile.html, function () {
+
+    return gulp.src([helper.path.source.html])
+        .pipe(replace("[{reload}]", helper.reload.tag()))
+        .pipe(htmlmin(helper.htmlMimify))
+        .pipe(gulp.dest(helper.path.destination.html))
+        .on("end", function () {
+            livereload.reload("index.html");
+        });
 });
 
-gulp.task(helper.tasks.build.server, function (done) {
-  webpack(helper.webpack.config(helper.webpack.server, true, true, false)).run(helper.onBuild(done));
+gulp.task(helper.tasks.compile.ts, function () {
+    return gulp.src(helper.path.source.defaultFile)
+        .pipe(webpackStream(helper.webpack()))
+        .pipe(gulp.dest(helper.path.destination.assets))
+        .pipe(livereload());
 });
 
-gulp.task(helper.tasks.build.client, function (done) {
-  webpack(helper.webpack.config(helper.webpack.client, true, true, false)).run(helper.onBuild(done));
+gulp.task(helper.tasks.compile.deploy, function () {
+
+    helper.tasks.compile.options.watch = false;
+    helper.tasks.compile.options.deploy = true;
+
+    return runSequence(helper.tasks.clear,
+        [helper.tasks.compile.html, helper.tasks.compile.ts]);
 });
 
-gulp.task(helper.tasks.build.deploy, [helper.tasks.clean.deploy], function (done) {
+gulp.task(helper.tasks.compile.server, function () {
+    livereload.listen({
+        port: helper.reload.port
+    });
 
-  gulp.src([helper.path.source.html])
-    .pipe(htmlmin(helper.htmlMimify))
-    .pipe(gulp.dest("./deploy/public"));
+    connect.server({
+        root: helper.path.destination.html,
+        port: helper.path.destination.port,
+        fallback: helper.path.destination.html + "/index.html",
+        livereload: false
+    });
+})
 
-  webpack(helper.webpack.config(helper.webpack.client, false, false, true, false)).run(helper.onBuild());
-  webpack(helper.webpack.config(helper.webpack.server, false, false, true, true)).run(helper.onBuild());
-});
+gulp.task(helper.tasks.watch, function () {
 
-gulp.task(helper.tasks.build.copy, function () {
-  gulp.src([helper.path.source.html])
-    .pipe(htmlmin(helper.htmlMimify))
-    .pipe(gulp.dest(helper.path.destination.html))
-    .on("end", function () {
-			livereload.reload("index.html");
-		});
-});
+    helper.tasks.compile.options.debug = true;
+    helper.tasks.compile.options.watch = true;
+    helper.tasks.compile.options.deploy = false;
 
-gulp.task(helper.tasks.watch.client, [helper.tasks.build.copy], function (done) {
+    gulp.watch([helper.path.source.html], [helper.tasks.compile.html]);
 
-  livereload({ start: true });
-  gulp.watch([helper.path.source.html], [helper.tasks.build.copy]);
-
-  gulp.src("./client/app/main.ts")
-    .pipe(webpackStream(helper.webpack.config(helper.webpack.client, true, true, false)))
-    .pipe(gulp.dest(helper.path.destination.js))
-    .pipe(livereload());
-
-  done();
-
-});
-
-gulp.task(helper.tasks.watch.server, function (done) {
-
-  var firedDone = false;
-
-  webpack(helper.webpack.config(helper.webpack.server, true, false, false)).watch(100, function (err, stats) {
-    if (!firedDone) {
-      firedDone = true;
-      done();
-    }
-
-    nodemon.restart();
-  });
-
-});
-
-gulp.task(helper.tasks.run, [helper.tasks.watch.server, helper.tasks.watch.client], function () {
-  nodemon({
-    execMap: {
-      js: "node"
-    },
-    script: path.join(__dirname, "bin"),
-    ignore: ["*"],
-    watch: ["foo/"],
-    nodeArgs: ["--debug"],
-    env: {
-      NODE_PATH: "./bin"
-    },
-    ext: "noop"
-  }).on("restart", function () {
-    console.log("Patched!");
-  });
+    return runSequence(helper.tasks.clear,
+        [helper.tasks.compile.html, helper.tasks.compile.ts, helper.tasks.compile.server]);
 });

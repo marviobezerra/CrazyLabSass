@@ -32,6 +32,7 @@ jspm_packages
 bin
 deploy
 typings
+public
 
 # Optional npm cache directory
 .npm
