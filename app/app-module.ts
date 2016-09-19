@@ -3,10 +3,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpModule } from "@angular/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { MaterialModule } from "./Components";
 
-import { LayoutComponent } from "./Components/Layout";
-import { AppComponents, AppRoutes } from "./Components/";
+import { MaterialModule, AppComponents, AppRoutes } from "./components";
+import { LayoutComponent } from "./components/layout";
 
 @NgModule({
     imports: [
@@ -24,4 +23,5 @@ import { AppComponents, AppRoutes } from "./Components/";
     bootstrap: [LayoutComponent]
 })
 export class AppModule {
+
 }

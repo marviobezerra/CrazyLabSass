@@ -1,6 +1,6 @@
-import { LayoutComponent } from "./Layout";
-import { HomeComponent } from "./Home";
-import { UserComponent } from "./User";
+import { LayoutComponent } from "./layout";
+import { HomeComponent } from "./home";
+import { UserComponent } from "./user";
 
 export const AppComponents: any[] = [
     LayoutComponent,
