@@ -1,4 +1,44 @@
-<h1>Work!!!!</h1>
+<md-sidenav-layout class="demo-sidenav-layout" layout="column" flex>
+	<md-sidenav #start (open)="myinput.focus()" mode="side" layout="column" flex>
+		Start Side Drawer
+		<br>
+		<button md-button (click)="start.close()">Close</button>
+		<br>
+		<button md-button (click)="end.open()">Open End Side</button>
+		<br>
+		<button md-button (click)="start.mode = (start.mode == 'push' ? 'over' : (start.mode == 'over' ? 'side' : 'push'))">Toggle Mode</button>
+		<div>Mode: {{start.mode}}</div>
+		<br>
+		<input #myinput>
+	</md-sidenav>
 
-<a [routerLink]="['/user']">User</a>
-<router-outlet></router-outlet>
+	<md-sidenav #end align="end" layout="column" flex>
+		End Side Drawer
+		<br>
+		<button md-button (click)="end.close()">Close</button>
+	</md-sidenav>
+
+	<div layout="column" flex>
+		<md-toolbar color="primary">
+			<button md-icon-button (click)="start.toggle()">
+            	<md-icon>menu</md-icon>
+        	</button>
+			<span>Primary Toolbar</span>
+
+			<span class="demo-fill-remaining"></span>
+
+			<md-icon>code</md-icon>
+		</md-toolbar>
+		</p>
+
+		<div>
+			<header>Sidenav</header>
+			<button md-button (click)="start.toggle()">Toggle Start Side Drawer</button>
+			<button md-button (click)="end.toggle()">Toggle End Side Drawer</button>
+		</div>
+
+		<button #mybutton>Teste</button>
+		<a [routerLink]="['/user']">User</a>
+		<router-outlet></router-outlet>
+	</div>
+</md-sidenav-layout>

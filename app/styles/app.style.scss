@@ -10,12 +10,10 @@ html, body {
     background-color: $color-body;
 }
 
-.col {
-    flex-wrap: wrap;
-    -webkit-columns: 4 150px;
-    -moz-columns: 4 150px;
-    columns: 4 150px;
-    -webkit-column-gap: 2em;
-    -moz-column-gap: 2em;
-    column-gap: 2em;
+md-toolbar {
+	min-height: 45px !important;
+
+	md-toolbar-row {
+		height: 45px !important;
+	}
 }

@@ -14,7 +14,8 @@ import { LayoutComponent } from "./components/layout";
 		ReactiveFormsModule,
         HttpModule,
         RouterModule,
-		AppRoutes
+		AppRoutes,
+        MaterialModule.forRoot()
     ],
 
     declarations: [       
