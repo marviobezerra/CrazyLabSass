@@ -3,8 +3,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpModule } from "@angular/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { MaterialModule } from "@angular/material";
 
-import { MaterialModule, AppComponents, AppRoutes } from "./components";
+import { AppComponents, AppRoutes } from "./components";
 import { LayoutComponent } from "./components/layout";
 
 @NgModule({

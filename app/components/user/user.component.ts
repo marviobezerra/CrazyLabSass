@@ -6,4 +6,5 @@ import { Component } from "@angular/core";
     styles: [require("./user.scss")]
 })
 export class UserComponent {
+    public Message: string = "Teste";
 }

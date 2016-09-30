@@ -12,7 +12,7 @@ var gulp = require("gulp"),
 var helper = {
     tasks: {
         clear: "clear",
-        watch: "dev:watch",
+        watch: "watch",
         compile: {
             deploy: "compile:deploy",
             server: "compile:server",
