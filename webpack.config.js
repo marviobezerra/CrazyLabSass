@@ -9,7 +9,7 @@ module.exports = {
 		"./app/polyfills.ts",
 		"./app/vendors.ts",
 		"./app/main.ts",
-        "./app/styles/app.style.scss"
+        "./app/styles/app-style.scss"
 	],
 	output: {
 		path: path.join(__dirname, "public", "asserts"),
@@ -31,7 +31,7 @@ module.exports = {
 				loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
 			},
             {
-            	test: /\app.style.scss/,
+            	test: /\app-style.scss/,
             	loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!sass-loader")
             },
 			{
