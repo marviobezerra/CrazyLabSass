@@ -8,6 +8,8 @@ import { MaterialModule } from "@angular/material";
 import { AppComponents, AppRoutes } from "./components";
 import { LayoutComponent } from "./components/layout";
 
+import { MdIconService } from "./components/ngMdIcon";
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -18,8 +20,10 @@ import { LayoutComponent } from "./components/layout";
 		AppRoutes,
         MaterialModule.forRoot()
     ],
-
-    declarations: [       
+    providers: [
+		MdIconService
+    ],
+    declarations: [  
         AppComponents
     ],
     bootstrap: [LayoutComponent]
