@@ -1,44 +1,16 @@
-<md-sidenav-layout class="demo-sidenav-layout" layout="column" flex>
-	<md-sidenav #start (open)="myinput.focus()" mode="side" layout="column" flex>
-		Start Side Drawer
-		<br>
-		<button md-button (click)="start.close()">Close</button>
-		<br>
-		<button md-button (click)="end.open()">Open End Side</button>
-		<br>
-		<button md-button (click)="start.mode = (start.mode == 'push' ? 'over' : (start.mode == 'over' ? 'side' : 'push'))">Toggle Mode</button>
-		<div>Mode: {{start.mode}}</div>
-		<br>
-		<input #myinput>
-	</md-sidenav>
-
-	<md-sidenav #end align="end" layout="column" flex>
-		End Side Drawer
-		<br>
-		<button md-button (click)="end.close()">Close</button>
-	</md-sidenav>
-
-	<div layout="column" flex>
-		<md-toolbar color="primary">
-			<button md-icon-button (click)="start.toggle()">
-            	<md-icon>menu</md-icon>
-        	</button>
-			<span>Primary Toolbar</span>
-
-			<span class="demo-fill-remaining"></span>
-
-			<md-icon>code</md-icon>
-		</md-toolbar>
-		</p>
-
-		<div>
-			<header>Sidenav</header>
-			<button md-button (click)="start.toggle()">Toggle Start Side Drawer</button>
-			<button md-button (click)="end.toggle()">Toggle End Side Drawer</button>
-		</div>
-
-		<button md-raised-button #mybutton>Teste</button>
-		<a [routerLink]="['/user']">User</a>
-		<router-outlet></router-outlet>
+<md-toolbar>
+	<div layout="row" style="width: 100%">
+		<button md-icon-button (click)="start.toggle()">
+			<md-icon>menu</md-icon>
+		</button>
+		<a  md-icon-button [routerLink]="['/user']">User</a>
+		<span>MyApp</span>
 	</div>
+</md-toolbar>
+
+<md-sidenav-layout class="left-navigation" id="privateNav">
+	<md-sidenav #start mode="side" opened="false">
+		Entry
+	</md-sidenav>
+	<router-outlet layout="column" flex></router-outlet>
 </md-sidenav-layout>

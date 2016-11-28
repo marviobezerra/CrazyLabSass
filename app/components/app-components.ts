@@ -1,11 +1,11 @@
 import { LayoutComponent } from "./layout";
 import { HomeComponent } from "./home";
-import { UserComponent } from "./user";
+import { UserComponent, UserDetailComponent, UserViewComponent } from "./user";
 import { MdMyIcon } from "./ngMdIcon";
 
 export const AppComponents: any[] = [
     LayoutComponent,
     HomeComponent,
-    UserComponent,
+    UserComponent, UserDetailComponent, UserViewComponent,
     MdMyIcon
 ];
