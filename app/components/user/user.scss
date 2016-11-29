@@ -2,3 +2,16 @@
 	width: 25%; 
 	height: 200px; 
 }
+
+.overlay {
+	height: 0;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0, 0.5);
+    overflow-x: hidden;
+    width: 100%;		
+	height: 100%;
+}

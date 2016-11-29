@@ -1,6 +1,7 @@
-<user-view #userView></user-view>
+<div *ngIf="IsViewDetail" class="overlay animated" [ngClass]="{ 'fadeIn': IsViewDetail, 'fadeOut': !IsViewDetail }" (click)="HideDetail()"></div>
+<user-view *ngIf="IsViewDetail" [Top]="Top" [Left]="Left" [Animation]="Animation" [Direction]="Direction"></user-view>
 <masonry>
-	<masonry-brick class="brick" *ngFor="let brick of bricks">
-		<user-detail detail [detail-target]="userView.Show"></user-detail>
+	<masonry-brick class="brick" *ngFor="let brick of Bricks" [style.z-index]="CurrentId === brick.id ? 9 : 1">
+		<user-detail #reference detail [Brick]="brick" [detail-reference]="reference" [detail-target]="ShowDetail"></user-detail>
 	</masonry-brick>
 </masonry>

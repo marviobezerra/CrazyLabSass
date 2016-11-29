@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
     selector: "user-detail",
@@ -6,4 +6,7 @@ import { Component } from "@angular/core";
     styles: [require("./user-detail.scss")]
 })
 export class UserDetailComponent {
+    public IsVisible: boolean = false;
+
+    @Input("Brick") public Brick: any;
 }

@@ -9,14 +9,15 @@ export class DetailDirective {
 	}
 
 	public Source: ElementRef;
-	@Input("detail-target") Target: (position: IPosition) => void;
+	@Input("detail-reference") Reference: any;
+	@Input("detail-target") Target: (reference: any, position: IPosition) => void;
 
-	@HostListener("click") mouseEnter() {
+	@HostListener("click") click() {
 		if (!this.Source || !this.Target)
 			return;
 
 		let sourceRect = this.GetRect(this.Source.nativeElement.getBoundingClientRect());
-		this.Target(sourceRect);
+		this.Target(this.Reference, sourceRect);
 	}
 
 	private GetRect(sourceRect: ClientRect): IPosition {
