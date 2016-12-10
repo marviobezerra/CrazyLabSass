@@ -6,9 +6,8 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@angular/material";
 
 import { InfiniteScrollModule } from "angular2-infinite-scroll";
-import { MasonryModule } from "angular2-masonry";
 
-import { DetailDirective } from "./directives";
+import { PackeryItemDirective } from "./directives";
 import { AppComponents, AppRoutes } from "./components";
 import { LayoutComponent } from "./components/layout";
 import { MdIconService } from "./components/ngMdIcon";
@@ -21,7 +20,6 @@ import { MdIconService } from "./components/ngMdIcon";
         HttpModule,
         RouterModule,
         InfiniteScrollModule,
-        MasonryModule,
 		AppRoutes,
         MaterialModule.forRoot()
     ],
@@ -29,7 +27,7 @@ import { MdIconService } from "./components/ngMdIcon";
 		MdIconService
     ],
     declarations: [
-        DetailDirective,  
+        PackeryItemDirective,  
         ...AppComponents
     ],
     bootstrap: [LayoutComponent]

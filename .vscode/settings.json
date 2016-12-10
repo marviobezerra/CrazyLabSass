@@ -6,7 +6,7 @@
         "README.md": true,
         "tsconfig.json": true,
         "typings.json": true,
-        "node_modules": true,
+        "node_modules": false,
         "public": true,
         "typings": true
     },

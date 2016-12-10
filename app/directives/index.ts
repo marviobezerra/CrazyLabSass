@@ -1,1 +1,1 @@
-export * from "./detail.directive";
+export * from "./packery-item.directive";
