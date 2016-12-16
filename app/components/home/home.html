@@ -1,1 +1,19 @@
 Home
+
+Task name: <input #taskName type="text"/>
+<button (click)="AddTask(taskName.value)">Add Task</button>
+
+Cancel Reason: <input #cancelReason type="text"/>
+
+<button (click)="Clear()">Clear</button>
+
+<ul>
+	<li *ngFor="let task of Tasks">
+		<span>{{task.Id}}</span>
+		<span>{{task.Name}}</span>
+		<span>{{task.StateText}}</span>
+		<span>{{task.Notes}}</span>
+		<button [disabled]="!task.CanChange && task.State !== 1" (click)="CompleteTask(task)">Complete</button>
+		<button [disabled]="!task.CanChange" (click)="CancelTask(task, cancelReason.value)">Cancel</button>
+	</li>
+</ul>

@@ -11,6 +11,9 @@ import { PackeryItemDirective } from "./directives";
 import { AppComponents, AppRoutes } from "./components";
 import { LayoutComponent } from "./components/layout";
 import { MdIconService } from "./components/ngMdIcon";
+import { SimpleService } from "./services/simple.service";
+import { TaskService } from "./services/task.service";
+
 
 @NgModule({
     imports: [
@@ -24,7 +27,9 @@ import { MdIconService } from "./components/ngMdIcon";
         MaterialModule.forRoot()
     ],
     providers: [
-		MdIconService
+		MdIconService,
+        SimpleService,
+        TaskService
     ],
     declarations: [
         PackeryItemDirective,  

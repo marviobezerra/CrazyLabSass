@@ -52,7 +52,7 @@
     "webpack-stream": "^3.2.0"
   },
   "scripts": {
-    "start": "gulp compile:server",
+    "start": "gulp watch",
     "postinstall": "typings install"
   }
 }

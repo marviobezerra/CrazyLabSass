@@ -5,6 +5,7 @@
 		</button>
 		<a  md-icon-button [routerLink]="['/user']">User</a>
 		<span>MyApp</span>
+		<span *ngIf="BusyState">Is Busy ...</span>
 	</div>
 </md-toolbar>
 
